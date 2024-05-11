@@ -92,7 +92,9 @@
       // ];
 
       // Create the cube and add it to the demo scene.
-      const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(1, 1, 1), material);
+      const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.5, 0.5, 0.5), material);
+      cube.visible = false; // Hide initially
+      scene.add(cube);
       //cube.position.set(1, 1, 1);
       //scene.add(cube);
 
@@ -100,11 +102,12 @@
         if (cube && !isPlaced) {
           console.log("placing cube at "+JSON.stringify(reticle.position));
           //const clone = flower.clone();
-          cube.position.set(reticle.position);
+          //cube.position.set(reticle.position);
+          cube.position.copy(reticle.position); 
           cube.visible = true;
           //cube.position.copy(reticle.position);
           isPlaced = true;
-          scene.add(cube);
+          //scene.add(cube);
         }
       });
 
