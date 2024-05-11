@@ -98,6 +98,7 @@
 
       session.addEventListener("select", (event) => {
         if (cube && !isPlaced) {
+          console.log("placing cube");
           //const clone = flower.clone();
           cube.position.copy(reticle.position);
           isPlaced = true;
