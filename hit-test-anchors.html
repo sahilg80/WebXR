@@ -18,10 +18,11 @@
 
   <video controls width="250">
 
-    <source src="https://res.cloudinary.com/dr7y4kbvc/video/upload/v1715439030/pd79wu5np1veajvntyvi.mp4" type="video/mp4" />
-  
+    <source src="https://res.cloudinary.com/dr7y4kbvc/video/upload/v1715439030/pd79wu5np1veajvntyvi.mp4"
+      type="video/mp4" />
+
   </video>
-  
+
 
   <!-- Starting an immersive WebXR session requires user interaction.
     We start this one with a simple button. -->
@@ -79,6 +80,17 @@
         scene.add(reticle);
       })
 
+      // assuming you have created a HTML video element with id="video"
+      const video = document.getElementById('video');
+      const videoTexture = new THREE.VideoTexture(video);
+
+      const material = new THREE.MeshBasicMaterial({
+        map: videoTexture,
+        toneMapped: false,
+        //color: 0x00FF00, 
+        side: THREE.FrontSide
+      });
+
       // let flower;
       // loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf", function (gltf) {
       //   flower = gltf.scene;
@@ -106,29 +118,17 @@
 
       session.addEventListener("select", (event) => {
         if (!isPlaced && reticle.visible) {
-          console.log("placing cube at "+JSON.stringify(reticle.position));
-          
-          // assuming you have created a HTML video element with id="video"
-          const video = document.getElementById( 'video' );
-          const texture = new THREE.VideoTexture( video );
-
-          const material = new THREE.MeshBasicMaterial({
-            map : texture,
-            toneMapped : false,
-            //color: 0x00FF00, 
-            side: THREE.FrontSide
-           });
+          console.log("placing cube at " + JSON.stringify(reticle.position));
 
           const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.3, 0.3, 0.3), material);
           //const clone = flower.clone();
           //cube.position.set(reticle.position);
-          cube.position.copy(reticle.position); 
+          cube.position.copy(reticle.position);
           cube.visible = true;
           //reticle.visible = false;
           //cube.position.copy(reticle.position);
           isPlaced = true;
           scene.add(cube);
-
         }
       });
 
@@ -163,9 +163,11 @@
             reticle.updateMatrixWorld(true);
           }
 
-          if(isPlaced){
+          if (isPlaced) {
             reticle.visible = false;
           }
+
+          videoTexture.needsUpdate = true;
 
           // Render the scene with THREE.WebGLRenderer.
           renderer.render(scene, camera)
