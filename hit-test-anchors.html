@@ -99,7 +99,7 @@
       //scene.add(cube);
 
       session.addEventListener("select", (event) => {
-        if (cube) {
+        //if (cube) {
           console.log("placing cube at "+JSON.stringify(reticle.position));
           const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.3, 0.3, 0.3), material);
           //const clone = flower.clone();
@@ -109,7 +109,7 @@
           //cube.position.copy(reticle.position);
           //isPlaced = true;
           scene.add(cube);
-        }
+        //}
       });
 
       // Create a render loop that allows us to draw on the AR view.
