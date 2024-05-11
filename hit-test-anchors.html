@@ -93,6 +93,7 @@
       // assuming you have created a HTML video element with id="video"
       const video = document.getElementById('video');
       const videoTexture = new THREE.VideoTexture(video);
+      videoTexture.format = THREE.RGBAFormat;
 
       videoTexture.minFilter = THREE.LinearFilter;
       videoTexture.magFilter = THREE.LinearFilter;
