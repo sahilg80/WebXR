@@ -18,7 +18,7 @@
 
   <video id="video" controls width="250">
 
-    <source src="/media/video/VideoForAR.mp4"
+    <source src="https://alok760.in/media/video/VideoForAR.mp4"
       type="video/mp4" crossorigin="anonymous"/>
 
   </video>
@@ -143,6 +143,9 @@
         // Bind the graphics framebuffer to the baseLayer's framebuffer
         gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer)
 
+        
+        videoTexture.needsUpdate = true;
+
         // Retrieve the pose of the device.
         // XRFrame.getViewerPose can return null while the session attempts to establish tracking.
         const pose = frame.getViewerPose(referenceSpace);
@@ -170,7 +173,6 @@
             reticle.visible = false;
           }
 
-          videoTexture.needsUpdate = true;
 
           // Render the scene with THREE.WebGLRenderer.
           renderer.render(scene, camera)
