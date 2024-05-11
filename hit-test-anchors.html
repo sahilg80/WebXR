@@ -98,9 +98,10 @@
 
       session.addEventListener("select", (event) => {
         if (cube && !isPlaced) {
-          console.log("placing cube");
+          console.log("placing cube at "+reticle.position);
           //const clone = flower.clone();
-          cube.position.copy(reticle.position);
+          cube.position.set(reticle.position);
+          //cube.position.copy(reticle.position);
           isPlaced = true;
           scene.add(cube);
         }
