@@ -62,7 +62,7 @@
       const viewerSpace = await session.requestReferenceSpace('viewer');
       // Perform hit testing using the viewer as origin.
       const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
-
+      var isPlaced = false;
 
       const loader = new THREE.GLTFLoader();
       let reticle;
@@ -72,16 +72,32 @@
         scene.add(reticle);
       })
 
-      let flower;
-      loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf", function (gltf) {
-        flower = gltf.scene;
-      });
+      // let flower;
+      // loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf", function (gltf) {
+      //   flower = gltf.scene;
+      // });
+
+      // The cube will have a different color on each side.
+      const materials = [
+        new THREE.MeshBasicMaterial({ color: 0xff0000 }),
+        new THREE.MeshBasicMaterial({ color: 0x0000ff }),
+        new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
+        new THREE.MeshBasicMaterial({ color: 0xff00ff }),
+        new THREE.MeshBasicMaterial({ color: 0x00ffff }),
+        new THREE.MeshBasicMaterial({ color: 0xffff00 })
+      ];
+
+      // Create the cube and add it to the demo scene.
+      const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.2, 0.2, 0.2), materials);
+      //cube.position.set(1, 1, 1);
+      //scene.add(cube);
 
       session.addEventListener("select", (event) => {
-        if (flower) {
-          const clone = flower.clone();
-          clone.position.copy(reticle.position);
-          scene.add(clone);
+        if (cube && !isPlaced) {
+          //const clone = flower.clone();
+          cube.position.copy(reticle.position);
+          isPlaced = true;
+          scene.add(cube);
         }
       });
 
@@ -96,7 +112,7 @@
         // Retrieve the pose of the device.
         // XRFrame.getViewerPose can return null while the session attempts to establish tracking.
         const pose = frame.getViewerPose(referenceSpace);
-        if (pose) {
+        if (pose && !isPlaced) {
           // In mobile AR, we only have one view.
           const view = pose.views[0];
 
