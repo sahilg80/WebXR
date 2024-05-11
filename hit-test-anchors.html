@@ -18,7 +18,7 @@
 
   <video id="video" controls width="250" loop muted="false" autoplay="true">
 
-    <source src="https://alok760.in/media/video/VideoForAR.mp4" type="video/mp4" crossorigin="anonymous" />
+    <source src="https://alok760.in/media/video/AyushARVideo.mp4" type="video/mp4" crossorigin="anonymous" />
 
   </video>
 
@@ -113,10 +113,12 @@
         if (!isPlaced && reticle.visible) {
           console.log("placing cube at " + JSON.stringify(reticle.position));
 
-          const planeGeometry = new THREE.PlaneGeometry(1, 1);
+          const planeGeometry = new THREE.PlaneGeometry(0.7, 2);
           //const planeMaterial = new THREE.MeshBasicMaterial();
           const planeMesh = new THREE.Mesh(planeGeometry, material);
-          planeMesh.position.copy(reticle.position);
+          let tempPosition = reticle.position;
+          planeMesh.position.set(reticle.position.x, reticle.position.y + 1, reticle.position.z);
+          //planeMesh.position.copy(reticle.position);
           planeMesh.visible = true;
           isPlaced = true;
           scene.add(planeMesh);
