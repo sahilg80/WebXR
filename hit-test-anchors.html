@@ -83,7 +83,7 @@
       var isPlaced = false;
 
       const textLoader = new THREE.FontLoader();
-      
+
       var loadedFont;
       loader.load("/fonts/Super Gallery_Regular.json",(f)=>{
         loadedFont = f;
@@ -142,8 +142,8 @@
 
           const textGeometry = new THREE.TextGeometry( "Hello", {
             font : loadedFont,
-            size : 12,
-            height : 5
+            size : 20,
+            height : 7
           } );
 
           const textMesh = new THREE.Mesh(
