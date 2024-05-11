@@ -113,11 +113,11 @@
         if (!isPlaced && reticle.visible) {
           console.log("placing cube at " + JSON.stringify(reticle.position));
 
-          const planeGeometry = new THREE.PlaneGeometry(0.7, 2);
+          const planeGeometry = new THREE.PlaneGeometry(0.9, 1.4);
           //const planeMaterial = new THREE.MeshBasicMaterial();
           const planeMesh = new THREE.Mesh(planeGeometry, material);
           let tempPosition = reticle.position;
-          planeMesh.position.set(reticle.position.x, reticle.position.y + 1, reticle.position.z);
+          planeMesh.position.set(reticle.position.x, reticle.position.y + 0.7, reticle.position.z);
           //planeMesh.position.copy(reticle.position);
           planeMesh.visible = true;
           isPlaced = true;
