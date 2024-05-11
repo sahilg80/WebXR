@@ -18,8 +18,7 @@
 
   <video id="video" controls width="250" loop muted="false" autoplay="true">
 
-    <source src="https://alok760.in/media/video/VideoForAR.mp4"
-      type="video/mp4" crossorigin="anonymous"/>
+    <source src="https://alok760.in/media/video/VideoForAR.mp4" type="video/mp4" crossorigin="anonymous" />
 
   </video>
 
@@ -28,6 +27,17 @@
     We start this one with a simple button. -->
   <button onclick="activateXR()">Start Hello WebXR</button>
   <script>
+
+    window.addEventListener('load', function () {
+      // Attempt to play video with sound after the page has loaded
+      var video = document.getElementById('video');
+      video.muted = false;
+      video.play().catch(function (error) {
+        console.error("Video play failed:", error);
+        // Handle the situation when autoplay with sound is not allowed
+      });
+    });
+
     async function activateXR() {
       // Add a canvas element and initialize a WebGL context that is compatible with WebXR.
       const canvas = document.createElement("canvas");
@@ -119,7 +129,7 @@
         // Bind the graphics framebuffer to the baseLayer's framebuffer
         gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer)
 
-        
+
         // Retrieve the pose of the device.
         // XRFrame.getViewerPose can return null while the session attempts to establish tracking.
         const pose = frame.getViewerPose(referenceSpace);
