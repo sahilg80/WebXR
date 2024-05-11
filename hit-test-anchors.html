@@ -62,7 +62,7 @@
       const viewerSpace = await session.requestReferenceSpace('viewer');
       // Perform hit testing using the viewer as origin.
       const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
-      //var isPlaced = false;
+      var isPlaced = false;
 
       const loader = new THREE.GLTFLoader();
       let reticle;
@@ -99,17 +99,18 @@
       //scene.add(cube);
 
       session.addEventListener("select", (event) => {
-        //if (cube) {
+        if (!isPlaced && reticle.visible) {
           console.log("placing cube at "+JSON.stringify(reticle.position));
           const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.3, 0.3, 0.3), material);
           //const clone = flower.clone();
           //cube.position.set(reticle.position);
           cube.position.copy(reticle.position); 
           cube.visible = true;
+          reticle.visible = false;
           //cube.position.copy(reticle.position);
-          //isPlaced = true;
+          isPlaced = true;
           scene.add(cube);
-        //}
+        }
       });
 
       // Create a render loop that allows us to draw on the AR view.
