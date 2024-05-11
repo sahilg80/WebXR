@@ -82,6 +82,13 @@
       const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
       var isPlaced = false;
 
+      const textLoader = new THREE.FontLoader();
+      
+      var loadedFont;
+      loader.load("/fonts/Super Gallery_Regular.json",(f)=>{
+        loadedFont = f;
+      });
+
       const loader = new THREE.GLTFLoader();
       let reticle;
       loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/reticle/reticle.gltf", function (gltf) {
@@ -134,7 +141,8 @@
           });
 
           const textGeometry = new THREE.TextGeometry( "Hello", {
-            size : 8,
+            font : loadedFont,
+            size : 12,
             height : 5
           } );
 
