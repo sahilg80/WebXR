@@ -28,15 +28,15 @@
   <button onclick="activateXR()">Start Hello WebXR</button>
   <script>
 
-    window.addEventListener('load', function () {
-      // Attempt to play video with sound after the page has loaded
-      var video = document.getElementById('video');
-      video.muted = false;
-      video.play().catch(function (error) {
-        console.error("Video play failed:", error);
-        // Handle the situation when autoplay with sound is not allowed
-      });
-    });
+    // window.addEventListener('load', function () {
+    //   // Attempt to play video with sound after the page has loaded
+    //   let video = document.getElementById('video');
+    //   //video.muted = false;
+    //   video.play().catch(function (error) {
+    //     console.error("Video play failed:", error);
+    //     // Handle the situation when autoplay with sound is not allowed
+    //   });
+    // });
 
     async function activateXR() {
       // Add a canvas element and initialize a WebGL context that is compatible with WebXR.
@@ -101,7 +101,7 @@
         map: videoTexture,
         toneMapped: false,
         //color: 0x00FF00, 
-        side: THREE.FrontSide
+        side: THREE.DoubleSide
       });
 
       // let flower;
@@ -113,11 +113,19 @@
         if (!isPlaced && reticle.visible) {
           console.log("placing cube at " + JSON.stringify(reticle.position));
 
-          const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.3, 0.3, 0.3), material);
-          cube.position.copy(reticle.position);
-          cube.visible = true;
+          const planeGeometry = new THREE.PlaneGeometry(1, 1);
+          //const planeMaterial = new THREE.MeshBasicMaterial();
+          const planeMesh = new THREE.Mesh(planeGeometry, material);
+          planeMesh.position.copy(reticle.position);
+          planeMesh.visible = true;
           isPlaced = true;
-          scene.add(cube);
+          scene.add(planeMesh);
+
+          // const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.3, 0.3, 0.3), material);
+          // cube.position.copy(reticle.position);
+          // cube.visible = true;
+          // isPlaced = true;
+          // scene.add(cube);
         }
       });
 
