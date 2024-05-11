@@ -16,7 +16,7 @@
 
 <body>
 
-  <video id="video" controls width="250" loop muted="false" autoplay="true">
+  <video id="video" controls width="250" loop muted="false" autoplay="true" controls>
 
     <source src="https://alok760.in/media/video/Ayush_Transparent.webm" type="video/webm" crossorigin="anonymous" />
 
@@ -102,7 +102,7 @@
         toneMapped: false,
         //color: 0x00FF00, 
         side: THREE.FrontSide,
-        transparent : true,
+        transparent: true,
       });
 
       // let flower;
@@ -123,6 +123,13 @@
           planeMesh.visible = true;
           isPlaced = true;
           scene.add(planeMesh);
+
+          let video = document.getElementById('video');
+          video.muted = false;
+          video.play().catch(function (error) {
+            console.error("Video play failed:", error);
+            // Handle the situation when autoplay with sound is not allowed
+          });
 
           // const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.3, 0.3, 0.3), material);
           // cube.position.copy(reticle.position);
