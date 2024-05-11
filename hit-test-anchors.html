@@ -62,7 +62,7 @@
       const viewerSpace = await session.requestReferenceSpace('viewer');
       // Perform hit testing using the viewer as origin.
       const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
-      var isPlaced = false;
+      //var isPlaced = false;
 
       const loader = new THREE.GLTFLoader();
       let reticle;
@@ -92,22 +92,23 @@
       // ];
 
       // Create the cube and add it to the demo scene.
-      const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.5, 0.5, 0.5), material);
-      cube.visible = false; // Hide initially
-      scene.add(cube);
+      //const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.5, 0.5, 0.5), material);
+      //cube.visible = false; // Hide initially
+      //scene.add(cube);
       //cube.position.set(1, 1, 1);
       //scene.add(cube);
 
       session.addEventListener("select", (event) => {
-        if (cube && !isPlaced) {
+        if (cube) {
           console.log("placing cube at "+JSON.stringify(reticle.position));
+          const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.3, 0.3, 0.3), material);
           //const clone = flower.clone();
           //cube.position.set(reticle.position);
           cube.position.copy(reticle.position); 
           cube.visible = true;
           //cube.position.copy(reticle.position);
-          isPlaced = true;
-          //scene.add(cube);
+          //isPlaced = true;
+          scene.add(cube);
         }
       });
 
@@ -122,7 +123,7 @@
         // Retrieve the pose of the device.
         // XRFrame.getViewerPose can return null while the session attempts to establish tracking.
         const pose = frame.getViewerPose(referenceSpace);
-        if (pose && !isPlaced) {
+        if (pose) {
           // In mobile AR, we only have one view.
           const view = pose.views[0];
 
