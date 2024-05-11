@@ -113,14 +113,15 @@
 
       session.addEventListener("select", (event) => {
         if (!isPlaced && reticle.visible) {
-          console.log("placing cube at " + JSON.stringify(reticle.position));
 
           const planeGeometry = new THREE.PlaneGeometry(0.8, 1.4);
-          //const planeMaterial = new THREE.MeshBasicMaterial();
+          
           const planeMesh = new THREE.Mesh(planeGeometry, material);
           let tempPosition = reticle.position;
           planeMesh.position.set(reticle.position.x, reticle.position.y + 0.7, reticle.position.z);
+          
           //planeMesh.position.copy(reticle.position);
+          
           planeMesh.visible = true;
           isPlaced = true;
           scene.add(planeMesh);
@@ -132,11 +133,19 @@
             // Handle the situation when autoplay with sound is not allowed
           });
 
-          // const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.3, 0.3, 0.3), material);
-          // cube.position.copy(reticle.position);
-          // cube.visible = true;
-          // isPlaced = true;
-          // scene.add(cube);
+          const textGeometry = new THREE.TextGeometry( "Hello", {
+            size : 8,
+            height : 5
+          } );
+
+          const textMesh = new THREE.Mesh(
+            textGeometry, 
+            new THREE.MeshPhongMaterial({color : 0xa91d3a}),
+          );
+
+          scene.add(textMesh);
+          textMesh.position.set(tempPosition.x+0.5, tempPosition.y, tempPosition.z);
+
         }
       });
 
