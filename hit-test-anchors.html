@@ -84,10 +84,10 @@
       const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
       var isPlaced = false;
 
-      var loadedFont;
-      const textLoader = new THREE.TTFLoader()
-      const fontLoader = new THREE.FontLoader()
-      textLoader.load('./fonts/Super_Font.ttf',fnt => loadedFont = fontLoader.parse(fnt))
+      // var loadedFont;
+      // const textLoader = new THREE.TTFLoader()
+      // const fontLoader = new THREE.FontLoader()
+      // textLoader.load('./fonts/Super_Font.ttf',fnt => loadedFont = fontLoader.parse(fnt))
 
       // = textLoader.Parse(Roboto);
       // textLoader.load("./fonts/Super Gallery_Regular.json",(f)=>{
@@ -153,7 +153,7 @@
 
           info3DModel.position.set(tempPosition.x+0.7, tempPosition.y+1, tempPosition.z);
           info3DModel.visible = true;
-          
+
           // const textGeometry = new THREE.TextGeometry( "Hello", {
           //   font : loadedFont,
           //   size : 20,
