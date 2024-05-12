@@ -137,11 +137,11 @@ margin: 0;">
       session.addEventListener("select", (event) => {
         if (!isPlaced && reticle.visible) {
 
-          const planeGeometry = new THREE.PlaneGeometry(0.8, 1.4);
+          const planeGeometry = new THREE.PlaneGeometry(1, 1.8);
 
           const planeMesh = new THREE.Mesh(planeGeometry, material);
           let tempPosition = reticle.position;
-          planeMesh.position.set(tempPosition.x, tempPosition.y + 0.7, tempPosition.z);
+          planeMesh.position.set(tempPosition.x, tempPosition.y + 0.9, tempPosition.z);
 
           planeMesh.visible = true;
           isPlaced = true;
@@ -154,7 +154,7 @@ margin: 0;">
             // Handle the situation when autoplay with sound is not allowed
           });
 
-          info3DModel.position.set(tempPosition.x + 0.4, tempPosition.y + 1, tempPosition.z);
+          info3DModel.position.set(tempPosition.x + 0.5, tempPosition.y + 1, tempPosition.z);
           info3DModel.visible = true;
 
           const light = new THREE.AmbientLight(0x404040); // soft white light
