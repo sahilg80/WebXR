@@ -38,7 +38,7 @@
     //   });
     // });
     
-    import Roboto from './fonts/Super_Gallery_Regular.json';
+    //import Roboto from './fonts/Super_Gallery_Regular.json';
 
     async function activateXR() {
       // Add a canvas element and initialize a WebGL context that is compatible with WebXR.
@@ -84,10 +84,12 @@
       const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
       var isPlaced = false;
 
-      const textLoader = new THREE.FontLoader();
+      var loadedFont;
+      const textLoader = new THREE.TTFLoader()
+      const fontLoader = new THREE.FontLoader()
+      textLoader.load('./fonts/Super_Font.ttf',fnt => loadedFont = fontLoader.parse(fnt))
 
-
-      var loadedFont = textLoader.Parse(Roboto);
+      // = textLoader.Parse(Roboto);
       // textLoader.load("./fonts/Super Gallery_Regular.json",(f)=>{
       //   loadedFont = f;
       // });
