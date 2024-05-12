@@ -12,34 +12,25 @@
 
   <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
 
-  
+
 </head>
 
 <body>
 
-  <video id="video" controls width="250" display="none" loop muted="false" autoplay="true" controls>
+  <div style="display: none;">
+    <video id="video" controls width="250" display="none" loop muted="false" autoplay="true" controls>
 
-    <source src="https://alok760.in/media/video/Ayush_Transparent.webm" type="video/webm" crossorigin="anonymous" />
+      <source src="https://alok760.in/media/video/Ayush_Transparent.webm" type="video/webm" crossorigin="anonymous" />
 
-  </video>
+    </video>
+  </div>
+
 
 
   <!-- Starting an immersive WebXR session requires user interaction.
     We start this one with a simple button. -->
   <button onclick="activateXR()">Start Hello WebXR</button>
   <script>
-
-    // window.addEventListener('load', function () {
-    //   // Attempt to play video with sound after the page has loaded
-    //   let video = document.getElementById('video');
-    //   //video.muted = false;
-    //   video.play().catch(function (error) {
-    //     console.error("Video play failed:", error);
-    //     // Handle the situation when autoplay with sound is not allowed
-    //   });
-    // });
-
-    //import Roboto from './fonts/Super_Gallery_Regular.json';
 
     async function activateXR() {
       // Add a canvas element and initialize a WebGL context that is compatible with WebXR.
@@ -70,8 +61,10 @@
       camera.matrixAutoUpdate = false;
 
       // Initialize a WebXR session using "immersive-ar".
-      const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test'] , 
-      optionalFeatures: [ 'light-estimation' ]});
+      const session = await navigator.xr.requestSession("immersive-ar", {
+        requiredFeatures: ['hit-test'],
+        optionalFeatures: ['light-estimation']
+      });
 
       session.updateRenderState({
         baseLayer: new XRWebGLLayer(session, gl)
@@ -85,16 +78,6 @@
       // Perform hit testing using the viewer as origin.
       const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
       var isPlaced = false;
-
-      // var loadedFont;
-      // const textLoader = new THREE.TTFLoader()
-      // const fontLoader = new THREE.FontLoader()
-      // textLoader.load('./fonts/Super_Font.ttf',fnt => loadedFont = fontLoader.parse(fnt))
-
-      // = textLoader.Parse(Roboto);
-      // textLoader.load("./fonts/Super Gallery_Regular.json",(f)=>{
-      //   loadedFont = f;
-      // });
 
       const loader = new THREE.GLTFLoader();
       let reticle;
@@ -134,32 +117,6 @@
         scene.add(info3DModel);
       });
 
-      // renderer.xr.enabled = true;
-
-      // // Don't add the XREstimatedLight to the scene initially.
-      // // It doesn't have any estimated lighting values until an AR session starts.
-      // const xrLight = new THREE.XREstimatedLight(renderer);
-
-      // xrLight.addEventListener('estimationstart', () => {
-
-      //   scene.add(xrLight);
-
-      //   if (xrLight.environment) {
-
-      //     scene.environment = xrLight.environment;
-
-      //   }
-
-      // });
-
-      // xrLight.addEventListener('estimationend', () => {
-
-      //   scene.remove(xrLight);
-
-      //   scene.environment = null;
-
-      // });
-
       session.addEventListener("select", (event) => {
         if (!isPlaced && reticle.visible) {
 
@@ -168,8 +125,6 @@
           const planeMesh = new THREE.Mesh(planeGeometry, material);
           let tempPosition = reticle.position;
           planeMesh.position.set(tempPosition.x, tempPosition.y + 0.7, tempPosition.z);
-
-          //planeMesh.position.copy(reticle.position);
 
           planeMesh.visible = true;
           isPlaced = true;
@@ -185,22 +140,8 @@
           info3DModel.position.set(tempPosition.x + 0.4, tempPosition.y + 1, tempPosition.z);
           info3DModel.visible = true;
 
-          const light = new THREE.AmbientLight( 0x404040 ); // soft white light
-          scene.add( light );
-
-          // const textGeometry = new THREE.TextGeometry( "Hello", {
-          //   font : loadedFont,
-          //   size : 20,
-          //   height : 7
-          // } );
-
-          // const textMesh = new THREE.Mesh(
-          //   textGeometry, 
-          //   new THREE.MeshPhongMaterial({color : 0xa91d3a}),
-          // );
-
-          // scene.add(textMesh);
-          // textMesh.position.set(tempPosition.x+0.5, tempPosition.y, tempPosition.z);
+          const light = new THREE.AmbientLight(0x404040); // soft white light
+          scene.add(light);
 
         }
       });
