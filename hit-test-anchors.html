@@ -37,6 +37,8 @@
     //     // Handle the situation when autoplay with sound is not allowed
     //   });
     // });
+    
+    import Roboto from './fonts/Super_Gallery_Regular.json';
 
     async function activateXR() {
       // Add a canvas element and initialize a WebGL context that is compatible with WebXR.
@@ -84,10 +86,11 @@
 
       const textLoader = new THREE.FontLoader();
 
-      var loadedFont;
-      textLoader.load("/fonts/Super Gallery_Regular.json",(f)=>{
-        loadedFont = f;
-      });
+
+      var loadedFont = textLoader.Parse(Roboto);
+      // textLoader.load("./fonts/Super Gallery_Regular.json",(f)=>{
+      //   loadedFont = f;
+      // });
 
       const loader = new THREE.GLTFLoader();
       let reticle;
