@@ -12,8 +12,7 @@
 
   <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
 
-  <script src="https://unpkg.com/three@0.126.0/examples/jsm/webxr/XREstimatedLight.js"></script>
-
+  
 </head>
 
 <body>
@@ -135,31 +134,31 @@
         scene.add(info3DModel);
       });
 
-      renderer.xr.enabled = true;
+      // renderer.xr.enabled = true;
 
-      // Don't add the XREstimatedLight to the scene initially.
-      // It doesn't have any estimated lighting values until an AR session starts.
-      const xrLight = new THREE.XREstimatedLight(renderer);
+      // // Don't add the XREstimatedLight to the scene initially.
+      // // It doesn't have any estimated lighting values until an AR session starts.
+      // const xrLight = new THREE.XREstimatedLight(renderer);
 
-      xrLight.addEventListener('estimationstart', () => {
+      // xrLight.addEventListener('estimationstart', () => {
 
-        scene.add(xrLight);
+      //   scene.add(xrLight);
 
-        if (xrLight.environment) {
+      //   if (xrLight.environment) {
 
-          scene.environment = xrLight.environment;
+      //     scene.environment = xrLight.environment;
 
-        }
+      //   }
 
-      });
+      // });
 
-      xrLight.addEventListener('estimationend', () => {
+      // xrLight.addEventListener('estimationend', () => {
 
-        scene.remove(xrLight);
+      //   scene.remove(xrLight);
 
-        scene.environment = null;
+      //   scene.environment = null;
 
-      });
+      // });
 
       session.addEventListener("select", (event) => {
         if (!isPlaced && reticle.visible) {
@@ -185,6 +184,9 @@
 
           info3DModel.position.set(tempPosition.x + 0.4, tempPosition.y + 1, tempPosition.z);
           info3DModel.visible = true;
+
+          const light = new THREE.AmbientLight( 0x404040 ); // soft white light
+          scene.add( light );
 
           // const textGeometry = new THREE.TextGeometry( "Hello", {
           //   font : loadedFont,
