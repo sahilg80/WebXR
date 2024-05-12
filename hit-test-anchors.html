@@ -123,6 +123,12 @@
       //   flower = gltf.scene;
       // });
 
+      let info3DModel;
+      loader.load("./fonts/ayush3DSkills.gltf", function (gltf) {
+        info3DModel = gltf.scene;
+        scene.add(info3DModel);
+      });
+
       session.addEventListener("select", (event) => {
         if (!isPlaced && reticle.visible) {
 
@@ -130,7 +136,7 @@
           
           const planeMesh = new THREE.Mesh(planeGeometry, material);
           let tempPosition = reticle.position;
-          planeMesh.position.set(reticle.position.x, reticle.position.y + 0.7, reticle.position.z);
+          planeMesh.position.set(tempPosition.x, tempPosition.y + 0.7, tempPosition.z);
           
           //planeMesh.position.copy(reticle.position);
           
@@ -145,19 +151,22 @@
             // Handle the situation when autoplay with sound is not allowed
           });
 
-          const textGeometry = new THREE.TextGeometry( "Hello", {
-            font : loadedFont,
-            size : 20,
-            height : 7
-          } );
+          info3DModel.position.set(tempPosition.x+0.7, tempPosition.y+1, tempPosition.z);
+          info3DModel.visible = true;
+          
+          // const textGeometry = new THREE.TextGeometry( "Hello", {
+          //   font : loadedFont,
+          //   size : 20,
+          //   height : 7
+          // } );
 
-          const textMesh = new THREE.Mesh(
-            textGeometry, 
-            new THREE.MeshPhongMaterial({color : 0xa91d3a}),
-          );
+          // const textMesh = new THREE.Mesh(
+          //   textGeometry, 
+          //   new THREE.MeshPhongMaterial({color : 0xa91d3a}),
+          // );
 
-          scene.add(textMesh);
-          textMesh.position.set(tempPosition.x+0.5, tempPosition.y, tempPosition.z);
+          // scene.add(textMesh);
+          // textMesh.position.set(tempPosition.x+0.5, tempPosition.y, tempPosition.z);
 
         }
       });
