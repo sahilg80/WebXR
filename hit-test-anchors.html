@@ -126,6 +126,9 @@
       let info3DModel;
       loader.load("./fonts/ayush3DSkills.gltf", function (gltf) {
         info3DModel = gltf.scene;
+        info3DModel.visible = false;
+        info3DModel.scale.set(0.3, 0.3, 0.3);
+        info3DModel.rotation.x = 0.5 * Math.PI;
         scene.add(info3DModel);
       });
 
